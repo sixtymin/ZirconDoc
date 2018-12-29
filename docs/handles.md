@@ -1,3 +1,4 @@
+<!--
 # Zircon Handles
 
 [TOC]
@@ -13,7 +14,21 @@ can only be either bound to a single process or be bound to
 kernel.
 
 When it is bound to kernel we say it's 'in-transit'.
+-->
 
+# Zircon 句柄
+
+[TOC]
+
+## 基础
+
+句柄是内核构件，它允许用于程序引用内核对象。句柄可以被当作特定内核对象的会话或链接。
+
+通常的情况是多进程通过不同的句柄同时访问相同的对象。但是，一个句柄只能或者绑定到一个进程或绑定到内核。
+
+当句柄绑定到内核时，我们称它为在转移途中。
+
+<!--
 In user-mode a handle is simply a specific number returned by
 some syscall. Only handles that are not in-transit are visible
 to user-mode.
@@ -36,7 +51,23 @@ logical fields:
 The '[rights](rights.md)' specify what operations on the kernel object
 are allowed. It is possible for a single process to have two different
 handles to the same kernel object with different rights.
+-->
 
+在用户模式中，句柄是一些系统调用返回的简单的特定数字。只有不在转移途中的句柄对用户模式是可见的。
+
+表示句柄的整数值对这个进程有意义。另外一个进程的相同数字可能不会映射到任何句柄，或它映射到指向另外一个完全不同的内核对象的句柄。
+
+句柄的整数值是一个任意的32位数字，除了对应于 `ZX_HANDLE_INVALID` 的值。
+
+内核模式中，句柄是一个 `C++` 对象，它博阿含了三个逻辑成员：
+
++ 引用内核对象。
++ 内核对象的权限。
++ 它绑定的进程（或者它绑定到内核）
+
+'[权限](rights.md)'指定了在内核对象可以进行的操作。一个进程中可以有两个不同的句柄指向相同的对象，但是两个句柄具有不同的权限。
+
+<!--
 ## Using Handles
 There are many syscalls that create a new kernel object
 and which return a handle to it. To name a few:
@@ -65,7 +96,36 @@ There are two syscalls that takes a handle bound to calling
 process and binds it into kernel (puts the handle in-transit):
 + [`zx_channel_write`](syscalls/channel_write.md)
 + [`zx_socket_share`](syscalls/socket_share.md)
+-->
 
+## 使用句柄
+
+有许多系统调用创建新的内核对象，它们返回指向内核对象的句柄。例如：
+
++ [`zx_event_create`](syscalls/event_create.md)
++ [`zx_process_create`](syscalls/process_create.md)
++ [`zx_thread_create`](syscalls/thread_create.md)
+
+这些系统调用创建内核对象以及第一个指向它们的句柄。句柄绑定到发起系统调用的进程中，权限则是这些类型内核对象默认的权限。
+
+只有一个系统调用用于复制句柄，复制出的句柄指向相同的内核对象，并且绑定到发起系统调用的进程：
+
++ [`zx_handle_duplicate`](syscalls/handle_duplicate.md)
+
+有一个系统调用创建等价句柄（可能有更少的权限），然后释放原始的句柄：
+
++ [`zx_handle_replace`](syscalls/handle_replace.md)
+
+有一个系统调用只用于销毁句柄：
+
++ [`zx_handle_close`](syscalls/handle_close.md)
+
+有两个系统调用用于将绑定到调用进程的句柄绑定到内核（将句柄放到转移途中状态）：
+
++ [`zx_channel_write`](syscalls/channel_write.md)
++ [`zx_socket_share`](syscalls/socket_share.md)
+
+<!--
 There are three syscalls that takes an in-transit handle and
 binds it to the calling process:
 + [`zx_channel_read`](syscalls/channel_read.md)
@@ -87,7 +147,9 @@ The bootstrapping handle can be of any transferable kernel object but
 the most reasonable case is that it points to one end of a channel
 so this initial channel can be used to send further handles into the
 new process.
+-->
 
+<!--
 ## Garbage Collection
 If a handle is valid, the kernel object it points to is guaranteed
 to be valid. This is ensured because kernel objects are ref-counted
@@ -104,7 +166,9 @@ When the last reference to a kernel object is released, the kernel
 object is either destroyed or the kernel marks the object for
 garbage collection; the object will be destroyed at a later time
 when the current set of pending operations on it are completed.
+-->
 
+<!--
 ## Special Cases
 + When a handle is in-transit and the channel or socket it was written
 to is destroyed, the handle is closed.
@@ -136,3 +200,5 @@ the of the mentioned invalid cases.
 ## See Also
 [Objects](objects.md),
 [Rights](rights.md)
+-->
+
