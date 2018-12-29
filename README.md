@@ -11,7 +11,7 @@ of this foundation.
 
 # Zircon
 
-Zircon是支撑Fuchsia操作系统的核心平台。Zircon是由多个部分组成，包括微内核（源码位于`kernel/..`目录下）以及用户空间服务，驱动和库（源码位于`system\..`目录）等小的程序集合，这些小集合用于系统引导，驱动硬件，加载用户空间进程并且执行它们所必须。在这些基础之上，Fuchsia构建了一个更大的操作系统。
+Zircon 是支撑 Fuchsia 操作系统的核心平台。Zircon 是由多个部分组成，包括微内核（源码位于`kernel/..`目录下）以及用户空间服务，驱动和库（源码位于`system\..`目录）等小的程序集合，这些小集合用于系统引导，驱动硬件，加载用户空间进程并且执行它们所必须。在这些基础之上，Fuchsia 构建了一个更大的操作系统。
 
 <!--
 The canonical Zircon Git repository is located
@@ -30,11 +30,11 @@ syscall API/ABI surface is finalized.  The expectation is that there will
 be about 100 syscalls.
 -->
 
-官方的Zircon的Git仓库位于地址：`https://fuchsia.googlesource.com/zircon`。代码的只读仓库可以在github上找到：`https://github.com/fuchsia-mirror/zircon`。
+官方的 Zircon 的 Git 仓库位于地址：`https://fuchsia.googlesource.com/zircon`。代码的只读仓库可以在 github 上找到：`https://github.com/fuchsia-mirror/zircon`。
 
-Zircon内核提供了管理进程，线程，虚拟地址，进程间通信，等待对象状态变化，锁（通过futexes）等系统调用。
+Zircon 内核提供了管理进程，线程，虚拟地址，进程间通信，等待对象状态变化，锁（通过 futexes）等系统调用。
 
-当前有一些临时的系统调用用于早期的构建工作，这些系统调用在长期的系统调用`API/ABI`最终完成时会被删除掉。预期会有大约100个系统调用。
+当前有一些临时的系统调用用于早期的构建工作，这些系统调用在长期的系统调用`API/ABI`最终完成时会被删除掉。预期会有大约 100 个系统调用。
 
 <!--
 Zircon syscalls are generally non-blocking.  The wait_one, wait_many
@@ -44,7 +44,6 @@ This page is a non-comprehensive index of the zircon documentation.
 
 + [Getting Started](docs/getting_started.md)
 + [Contributing Patches](docs/contributing.md)
-
 + [Concepts Overview](docs/concepts.md)
 + [Kernel Objects](docs/objects.md)
 + [Kernel Scheduling](docs/kernel_scheduling.md)
@@ -52,9 +51,7 @@ This page is a non-comprehensive index of the zircon documentation.
 + [Thread Objects](docs/objects/thread.md)
 + [Handles](docs/handles.md)
 + [System Calls](docs/syscalls.md)
-
 + [Driver Development Kit](docs/ddk/overview.md)
-
 + [Testing](docs/testing.md)
 + [Hacking notes](docs/hacking.md)
 + [Memory usage analysis tools](docs/memory.md)
@@ -62,9 +59,9 @@ This page is a non-comprehensive index of the zircon documentation.
 + [Micro-benchmarks](docs/benchmarks/microbenchmarks.md)
 -->
 
-Zircon系统调用通常都是非阻塞的。`wait_one`，`wait_many`，`port_wait`和线程的`sleep`等函数则是例外。
+Zircon 系统调用通常都是非阻塞的。`wait_one`，`wait_many`，`port_wait`和线程的`sleep`等函数则是例外。
 
-如下的列表并非Zircon文档的完整索引。
+如下的列表并非 Zircon 文档的完整索引。
 
 + [入门指南](docs/getting_started.md)
 + [贡献补丁](docs/contributing.md)
