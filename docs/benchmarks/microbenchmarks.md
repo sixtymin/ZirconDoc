@@ -1,3 +1,4 @@
+<!--
 ### Micro-benchmarks
 
 ## Environment
@@ -7,6 +8,15 @@ release build of fuchsia via ssh. When the benchmarks are recorded the Fuchsia
 user shell (GPU-accelerated) is running but no user has yet logged in.
 
 These are the running processes at the time of the benchmark:
+-->
+
+### 微型基准测试
+
+## 环境
+
+如下的基准测试结果是发布版的 fuchsia 编译中通过 ssh 获取的的 `zircon-benchmarks` 执行的结果。当基准测试记录时，Fuchsia 用户 Shell（GPU加速的）已经运行，但是没有用户登录进去。
+
+如下是在基准测试中正在运行的进程：
 
 ```
  ps
@@ -58,7 +68,7 @@ j:1029               796.8M  783.9M         root
 
 ```
 
-The typical thread load of the system before running the benchmarks (via k threadload):
+在执行基准测试之前，系统的典型线程负载（通过 k threadload 获取）如下：
 
 ```
  cpu    load sched (cs ylds pmpts)  pf  sysc ints (hw  tmr tmr_cb) ipi (rs  gen)
@@ -78,9 +88,9 @@ The typical thread load of the system before running the benchmarks (via k threa
    3   0.15%       196    0     0   20   492        0   60     60       32   28
 ```
 
-It is believed that the running processes has a very minor impact on benchmark results.
+可以相信正在运行的进程对于基准测试结果影响非常小。
 
-
+<!--
 ## Run 8-17-2017
 
 Intel NUC  Model: NUC7i3BNK
@@ -88,6 +98,15 @@ Intel NUC  Model: NUC7i3BNK
 + Processor: i3-7100U @ 2.40 GHz (Cache: 3M)
 + Memory type: DDR4-2133 1.2V SO-DIMM
 + Max Memory Bandwidth 34.1 GB/s
+-->
+
+## 运行于 8-17-2017
+
+Intel NUC模型： NUC7i3BNK
+
++ 处理器: i3-7100U @ 2.40 GHz (Cache: 3M)
++ 内存类型: DDR4-2133 1.2V SO-DIMM
++ 最大内存带宽 34.1 GB/s
 
 ```
 buildid:  GIT_5E66D79D5A167878ACF9A944AF92D0EBB6A60DF2
@@ -132,10 +151,15 @@ Syscall/ManyArgs                       77 ns         76 ns    9134297
 Thread/Create                        4992 ns       4967 ns     141135
 ```
 
-
+<!--
 ## Run 1-2-2018
 
 Same NUC as before 8-17-2017.
+-->
+
+## 运行于 1-2-2018
+
+与之前 `8-17-2017` 同样的硬件。
 
 ```
 buildid:  git-6e45a186511c53445c17a4c387ae8368e3e25c4a
@@ -209,9 +233,15 @@ Vmo/Create                                    713 ns        718 ns     976569
 
 ```
 
+<!--
 ## Channels benchmark change from baseline
 
 Baseline is 8-17-2017
+-->
+
+## 基线代码中变化的信道基准测试
+
+基线代码是 8-17-2017。
 
 ```
                                     1-2-18
@@ -234,10 +264,15 @@ ChannelMultiProcess/Read/1024      -32.60%  (decrease)
 ChannelMultiProcess/Read/32k       185.78%
 ChannelMultiProcess/Read/64k       245.81%
 ```
-
+<!--
 ## Events benchmark change from baseline
 
 Baseline is 8-17-2017
+-->
+
+## 基线代码中变化的事件基准测试
+
+基线代码是 8-17-2017。
 
 ```
                                     1-2-18
@@ -247,9 +282,15 @@ Event/Close                         26.58%
 Event/Signal                         9.24%
 ```
 
+<!--
 ## Socket benchmark change from baseline
 
 Baseline is 8-17-2017
+-->
+
+## 基线代码中变化的套接字基准测试
+
+基线代码是 8-17-2017。
 
 ```
                                     1-2-18

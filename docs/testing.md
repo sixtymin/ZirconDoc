@@ -1,3 +1,4 @@
+<!--
 # Testing
 
 The test harness which runs on our bots (called "runtests") picks up all
@@ -21,6 +22,27 @@ These classes are the following:
 * **Performance**: Tests which are expected to pass, but which are measured
   using other metrics (thresholds, statistical techniques) to identify
   regressions.
+-->
+
+# 测试
+
+执行在我们项目上的测试工具（被称为“runtests”）会选取 "/boot/test" 和 "/system/test" 目录下的所有二进制可执行文件，并且运行它们。如果提供了命令行参数，例如 `runtests -S -m widget_test`，`runtests` 会只执行要求的单个测试，这个例子中是 `widget_test`。
+
+"runtests" 使用命令行参数来确定要执行的测试类别。
+
+测试类别哦有如下几种：
+
+* **小型**: 用于函数和类的单独测试。这些测试必须是完全同步和单线程。这些测试需要能够并行化；所以在这些测试之间不应该有任何的资源共享。
+* **中型**: Single-process integration tests. Ideally these are also synchronous
+  and single-threaded but they might run through a large chunk of code in each
+  test case, or they might use disk, making them a bit slower.
+* **大型**: Slow, multi-process, or particularly incomprehensible single-process
+  integration tests. These tests are often too slow / flaky to run in a CQ, and
+  we should try to limit how many we have.
+* **性能**: Tests which are expected to pass, but which are measured
+  using other metrics (thresholds, statistical techniques) to identify
+  regressions.
+
 
 Since runtests doesn't really know what "class" is executing when it launches a
 test, it encodes this information in the environment variable

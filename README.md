@@ -74,7 +74,7 @@ Zircon 系统调用通常都是非阻塞的。`wait_one`，`wait_many`，`port_w
 + [系统调用](docs/syscalls.md)
 + [驱动程序开发包（DDK）](docs/ddk/overview.md)
 + [测试](docs/testing.md)
-+ [入侵笔记](docs/hacking.md)
++ [小工具说明](docs/hacking.md)
 + [内存使用情况分析工具](docs/memory.md)
 + [与LK的关系](docs/zx_and_lk.md)
 + [微型基准测试](docs/benchmarks/microbenchmarks.md)

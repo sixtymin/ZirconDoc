@@ -1,3 +1,4 @@
+<!--
 # Notes for hacking on Zircon
 
 This file contains a random collection of notes for hacking on Zircon.
@@ -14,7 +15,23 @@ and debug mode. This can all be executed with the `buildall` script:
 
 From the zircon shell run `k ut all` to execute all kernel tests, and
 `runtests` to execute all userspace tests.
+-->
 
+# Zircon 小工具说明
+
+这篇文章包含了几个 Zircon 小工具的说明。
+
+[TOC]
+
+## 编译和测试
+
+为了确保不影响任何推荐的编译目标，一次编译测试所有的目标，用 gcc 和 clang，即测试发布模式与测试调试模式。这些可以一次使用 `buildall` 脚本执行：
+
+```./scripts/buildall -q -c -r```
+
+在 Zircon 的 Shell 中执行 `k ut all` 执行所有的内核测试，`runtests` 执行所有的用户空间测试。
+
+<!--
 ## Syscall generation
 
 Syscall support is generated from
@@ -34,7 +51,23 @@ its output.
 * Alt+Up/Down scrolls up and down by lines
 * Shift+PgUp/PgDown scrolls up and down by half page
 * Ctrl+Alt+Delete reboots
+-->
 
+## 系统调用生成
+
+系统调用支持是从 `system/public/zircon/syscalls.abigen` 生成的，宿主机工具 [abigen](../system/host/abigen) 处理这个文件，并且为内核和用户空间以各种语言形式生成输出。输出中包含了 `C` 或 `C++` 头文件，即用于内核，也用于用户空间，即系统调用入口点，其他语言的绑定信息等等。
+
+这个工具是作为编译的一部分来调用的，而不是用于检查它的数据。
+
+## 终止导航和键盘快捷键
+
+* Alt+Tab 在 VTs 之间切换
+* Alt+F{1,2,...} 直接切换到某个 VT
+* Alt+Up/Down 上下滚动一行
+* Shift+PgUp/PgDown 上下滚动半页
+* Ctrl+Alt+Delete 重启
+
+<!--
 ## Kernel panics
 
 Since the kernel can't reliably draw to a framebuffer when the GPU is enabled,
@@ -54,7 +87,23 @@ again it will be replaced.
 
 To disable reboot-on-panic, pass the kernel commandline argument
 [`kernel.halt-on-panic=true`](kernel_cmdline.md#kernel_halt_on_panic_bool).
+-->
 
+## 内核错误
+
+当GPU开启时，内核不能够实际向帧内存画东西，否则如果内核崩溃或错误，默认情况下系统会重启。
+
+如果内核崩溃且系统重新引导，内核应急日志会在 `/boot/log/last-panic.txt` 文件中，用于查看和下载等。
+
+> 如果报告内核错误时，请将你的 `last-panic.txt` 和 `zircon.elf` 文件一起附上。
+
+如果有文件 `last-panic.txt` 存在，那么意味着这是上次内核崩溃发生后第一次成功引导。
+
+这个文件不会持续保留—— 如果你重新完整引导，这个文件会被删除，并且如果你的内核再次崩溃，它也会被替代。
+
+开启崩溃重启功能，在内核命令行参数传递 [`kernel.halt-on-panic=true`](kernel_cmdline.md#kernel_halt_on_panic_bool)。
+
+<!--
 ## Low level kernel development
 
 For kernel development it's not uncommon to need to monitor or break things
@@ -84,7 +133,9 @@ of kernel freezes) you can enable ``ENABLE_KERNEL_LL_DEBUG`` in your ``local.mk`
 EXTERNAL_KERNEL_DEFINES := ENABLE_KERNEL_LL_DEBUG=1
 
 ```
+-->
 
+<!--
 There is also a kernel cmdline parameter kernel.bypass-debuglog, which can be set
 to true to force output to the console instead of buffering it. The reason we have
 both a compile switch and a cmdline parameter is to facilitate prints in the kernel
@@ -102,7 +153,9 @@ You can override the default `-On` level for a module by defining in its
 ```
 MODULE_OPTFLAGS := -O0
 ```
+-->
 
+<!--
 ## Requesting a backtrace
 
 ### From within a user process
@@ -123,7 +176,9 @@ When `backtrace\_request` is called, it causes an
 exception used by debuggers for breakpoint handling.
 If a debugger is not attached, the system crashlogger will
 process the exception, print a backtrace, and then resume the thread.
+-->
 
+<!--
 ### From a kernel thread
 
 ```
@@ -148,7 +203,9 @@ through to devmgr, and devmgr will export the VMO as a file at the path
 
 This mechanism is used by the entropy collector quality tests to export
 relatively large (~1 Mbit) files full of random data.
+-->
 
+<!--
 ## How to deprecate #define constants
 
 One can create a deprecated typedef and have the constant definition
@@ -159,3 +216,5 @@ of the deprecated typedef.
 typedef int ZX_RESUME_NOT_HANDLED_DEPRECATION __attribute__((deprecated));
 #define ZX_RESUME_NOT_HANDLED ((ZX_RESUME_NOT_HANDLED_DEPRECATION)(2))
 ```
+
+-->
