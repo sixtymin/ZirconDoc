@@ -434,8 +434,7 @@ pass the -1 option, bootserver will exit after a successful boot instead.
 
 它通过使用 IPv6链接本地寻址和多播实现，通过被引导硬件广播它的可引导性，主机就会找到它，并且将系统映像发送给它。
 
-如果你有硬件设备（比如 Broadwell 或 Skylake Intel NUC）运行了 GigaBoot20x6，首先创建一个USB驱动 
-[manually](https://fuchsia.googlesource.com/zircon/+/master/docs/targets/acer12.md#How-to-Create-a-Bootable-USB-Flash-Drive) 或者使用 [脚本](https://fuchsia.googlesource.com/scripts/+/master/build-bootable-usb-gigaboot.sh) （仅用于 Linux）。
+如果你有硬件设备（比如 Broadwell 或 Skylake Intel NUC）运行了 GigaBoot20x6，首先创建一个USB驱动 [手动](https://fuchsia.googlesource.com/zircon/+/master/docs/targets/acer12.md#How-to-Create-a-Bootable-USB-Flash-Drive) 或者使用 [脚本](https://fuchsia.googlesource.com/scripts/+/master/build-bootable-usb-gigaboot.sh) （仅用于 Linux）。
 
 ```
 $BUILDDIR/tools/bootserver $BUILDDIR/zircon.bin
